@@ -33,16 +33,19 @@ self.addEventListener('fetch', function (e) {
 
   var url = new URL(req.url);
   var isData = /\/data\//.test(url.pathname);
+  var isPage = req.mode === 'navigate' || /\/(index\.html)?$/.test(url.pathname);
 
-  if (isData) {
-    // 장소 목록은 네트워크 우선 — 수정한 내용이 바로 보이도록
+  // 장소 목록과 페이지는 네트워크 우선 — 고친 내용이 바로 보이도록
+  if (isData || isPage) {
     e.respondWith(
       fetch(req).then(function (res) {
         var copy = res.clone();
         caches.open(CACHE).then(function (c) { c.put(req, copy); });
         return res;
       }).catch(function () {
-        return caches.match(req);
+        return caches.match(req).then(function (hit) {
+          return hit || (isPage ? caches.match('./index.html') : undefined);
+        });
       })
     );
     return;
