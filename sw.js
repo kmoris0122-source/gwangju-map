@@ -1,6 +1,6 @@
 /* 광주 밥약 & 포토스팟 맵 — offline shell
    거의 바뀌지 않는 껍데기는 캐시, 장소 데이터는 항상 네트워크 우선. */
-var CACHE = 'gwangju-map-v2';
+var CACHE = 'gwangju-map-v3';
 var SHELL = [
   './',
   './index.html',
