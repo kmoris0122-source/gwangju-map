@@ -50,10 +50,8 @@
 
   /* ---------- header ---------- */
   header{
-    position:sticky;top:0;z-index:30;
+    position:relative;z-index:30;
     background:linear-gradient(180deg,#fff8f1 72%,rgba(255,248,241,.92));
-    backdrop-filter:saturate(140%) blur(12px);
-    -webkit-backdrop-filter:saturate(140%) blur(12px);
     border-bottom:1px solid var(--line);
     padding-top:calc(10px + env(safe-area-inset-top));
   }
@@ -211,6 +209,7 @@
   @keyframes fade{from{opacity:0}to{opacity:1}}
   .sheet-card{
     width:100%;max-width:640px;background:var(--bg);
+    max-height:92vh;max-height:92dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;
     border-radius:22px 22px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));
     box-shadow:0 -12px 40px rgba(60,40,20,.18);animation:slideup .26s cubic-bezier(.2,.8,.3,1) both;
   }
