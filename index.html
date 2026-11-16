@@ -144,10 +144,11 @@
   .badge.st-visited{background:#eef1f4;border-color:#dfe4ea;color:#5b6875}
   .badge.done{background:var(--mint-soft);border-color:#c8ebdf;color:#1f7d63;font-weight:600}
 
-  .meta{margin-top:10px;display:grid;gap:5px}
-  .meta-row{display:flex;gap:8px;font-size:13px;color:var(--ink-2);line-height:1.4}
+  .meta{margin-top:10px;display:grid;gap:5px}  .meta-row{display:flex;gap:8px;font-size:13px;color:var(--ink-2);line-height:1.4}
   .meta-row .k{flex:0 0 auto;width:18px;text-align:center;opacity:.85}
   .meta-row .v{flex:1;min-width:0}
+  .meta-row .v a{color:inherit;text-decoration:underline;text-underline-offset:2px;text-decoration-color:#d9c8b8}
+  .addr{margin:7px 0 0;font-size:12px;color:var(--ink-3);line-height:1.4;letter-spacing:-.01em}
   .meta-row.sig .v{color:var(--ink);font-weight:600}
   .note{
     margin:11px 0 0;padding:9px 11px;border-radius:11px;background:var(--surface-2);
@@ -459,6 +460,13 @@
       '<span class="v">' + esc(text) + '</span></div>';
   }
 
+  function phoneRow(phone) {
+    var tel = String(phone).replace(/[^0-9+]/g, '');
+    return '<div class="meta-row">' +
+      '<span class="k" aria-hidden="true">📞</span>' +
+      '<span class="v"><a href="tel:' + esc(tel) + '">' + esc(phone) + '</a></span></div>';
+  }
+
   function cardHTML(p) {
     var st = effectiveStatus(p);
     var done = isChecked(p);
@@ -475,9 +483,11 @@
           '<span class="badge st-' + esc(st) + '">' + esc(STATUS_LABEL[st] || st) + '</span>' +
           (done ? '<span class="badge done">✓ 다녀옴</span>' : '') +
         '</div>' +
+        (p.address ? '<p class="addr">📍 ' + esc(p.address) + '</p>' : '') +
         '<div class="meta">' +
           metaRow('🕒', p.hours) +
           metaRow('🅿️', p.parking) +
+          (p.phone ? phoneRow(p.phone) : '') +
           metaRow(isPhoto ? '🎟️' : '💰', p.priceRange) +
           metaRow(isPhoto ? '📸' : '⭐', p.signature, 'sig') +
         '</div>' +
@@ -660,6 +670,7 @@
       '<div class="result-meta">' +
         metaRow('🕒', p.hours) +
         metaRow('🅿️', p.parking) +
+        (p.phone ? phoneRow(p.phone) : '') +
         metaRow(isPhoto ? '🎟️' : '💰', p.priceRange) +
         metaRow(isPhoto ? '📸' : '⭐', p.signature, 'sig') +
         (p.note ? '<div class="result-note">' + esc(p.note) + '</div>' : '') +
