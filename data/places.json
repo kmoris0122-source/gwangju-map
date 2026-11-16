@@ -12,8 +12,9 @@
     "priceRange": "1만 원대 (솥밥 12,900~16,900원)",
     "signature": "해물5종 솥밥 13,900원 · 바질새우 솥밥",
     "note": "샘플 추천 · 이천쌀 솥밥에 반찬 셀프바. 밥약 첫 끼로 무난하고 깔끔한 편, 주차 1시간이 살짝 아쉬움.",
-    "mapUrl": "https://maps.google.com/?cid=6320702787166219456",
-    "addedAt": "2026-11-16T10:20:00+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EB%B0%94%EB%A5%B8%EA%B3%B3%EA%B0%84%20%EC%86%A5%EB%B0%A5%EC%9D%B4%EC%95%BC%EA%B8%B0%20%EA%B4%91%EC%A3%BC%20%EA%B4%91%EC%82%B0%EA%B5%AC",
+    "addedAt": "2026-11-16T10:20:00+09:00",
+    "mapQuery": "바른곳간 솥밥이야기 광주 광산구"
   },
   {
     "id": "suwan-creamjip",
@@ -28,8 +29,9 @@
     "priceRange": "음료 5,400~9,500원 · 조각 케이크 8,000원대",
     "signature": "크림집 소금라떼 7,600원 · 생과일 케이크",
     "note": "샘플 추천 · 수완1저수지 앞 대형 카페. 늦게까지 열어서 밥약 2차로 좋고, 케이크가 주인공.",
-    "mapUrl": "https://maps.google.com/?cid=10585797073328456394",
-    "addedAt": "2026-11-16T10:24:00+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%ED%81%AC%EB%A6%BC%EC%A7%91%20%EA%B4%91%EC%A3%BC%20%EA%B4%91%EC%82%B0%EA%B5%AC",
+    "addedAt": "2026-11-16T10:24:00+09:00",
+    "mapQuery": "크림집 광주 광산구"
   },
   {
     "id": "dongmyeong-teaat",
@@ -44,8 +46,9 @@
     "priceRange": "6,000~7,000원",
     "signature": "티앗 홍차라떼 6,900원 · 티앗 밀크티 6,000원",
     "note": "샘플 추천 · 한옥 카페, 2층은 신발 벗는 좌식. 차 종류가 압도적이라 수다 떨기 좋음.",
-    "mapUrl": "https://maps.google.com/?cid=5095482104409094493",
-    "addedAt": "2026-11-16T10:28:00+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EC%B9%B4%ED%8E%98%20%ED%8B%B0%EC%95%97%20%EA%B4%91%EC%A3%BC%20%EB%8F%99%EA%B5%AC",
+    "addedAt": "2026-11-16T10:28:00+09:00",
+    "mapQuery": "카페 티앗 광주 동구"
   },
   {
     "id": "dongmyeong-jeonghee",
@@ -60,8 +63,9 @@
     "priceRange": "1인 1~2만 원대 (메뉴 11,900~39,900원)",
     "signature": "강된장 케일쌈밥 · 고사리 크림 수제비 · 정희 삼합",
     "note": "샘플 추천 · 퓨전한식. 평일 저녁에도 웨이팅이 있어 캐치테이블 예약이 안전.",
-    "mapUrl": "https://maps.google.com/?cid=18248851698135492137",
-    "addedAt": "2026-11-16T10:32:00+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EC%A0%95%ED%9D%AC%20%EB%8F%99%EB%AA%85%EC%A0%90%20%EA%B4%91%EC%A3%BC%20%EB%8F%99%EA%B5%AC",
+    "addedAt": "2026-11-16T10:32:00+09:00",
+    "mapQuery": "정희 동명점 광주 동구"
   },
   {
     "id": "sangmu-okdoenjang",
@@ -76,8 +80,9 @@
     "priceRange": "점심특선 12,000원 · 저녁 13,000원",
     "signature": "된장전골 · 순두부전골 · 미나리전",
     "note": "샘플 추천 · 점심특선 가성비가 좋음. 상무역 6번 출구에서 도보 5분.",
-    "mapUrl": "https://maps.google.com/?cid=7075187327932835511",
-    "addedAt": "2026-11-16T10:36:00+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EC%98%A5%EB%90%9C%EC%9E%A5%20%EC%83%81%EB%AC%B4%EC%A7%80%EA%B5%AC%EC%A0%90",
+    "addedAt": "2026-11-16T10:36:00+09:00",
+    "mapQuery": "옥된장 상무지구점"
   },
   {
     "id": "photo-acc-skyyard",
@@ -92,8 +97,9 @@
     "priceRange": "외부 광장 무료 · 전시·공연은 별도",
     "signature": "촬영 포인트 — 옥상 하늘마당과 플라자브릿지의 얇은 곡선. 해가 진 뒤 조명 켜질 때가 하이라이트",
     "note": "샘플 추천 · 5·18민주광장에서 문화창조원 옥상으로 이어지는 동선. 월요일은 내부 휴관이라 외부 촬영만.",
-    "mapUrl": "https://maps.google.com/?cid=1360628587686146602",
-    "addedAt": "2026-11-16T13:10:00+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EA%B5%AD%EB%A6%BD%EC%95%84%EC%8B%9C%EC%95%84%EB%AC%B8%ED%99%94%EC%A0%84%EB%8B%B9%20%ED%95%98%EB%8A%98%EB%A7%88%EB%8B%B9%20%EA%B4%91%EC%A3%BC%20%EB%8F%99%EA%B5%AC",
+    "addedAt": "2026-11-16T13:10:00+09:00",
+    "mapQuery": "국립아시아문화전당 하늘마당 광주 동구"
   },
   {
     "id": "photo-yangnim-village",
@@ -108,8 +114,9 @@
     "priceRange": "산책 무료 · 개별 시설 입장료 별도",
     "signature": "촬영 포인트 — 펭귄마을 골동품 골목, 오웬기념각·이장우가옥 언덕. 오전 햇살에 골목 그림자가 예쁨",
     "note": "샘플 추천 · 언덕이 많아 편한 신발. 양림교회·라디오 스튜디오 쪽으로 걸어 이어짐.",
-    "mapUrl": "https://maps.google.com/?cid=3182419014206218936",
-    "addedAt": "2026-11-16T13:14:00+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EC%96%91%EB%A6%BC%EB%8F%99%20%EA%B7%BC%EB%8C%80%EC%97%AD%EC%82%AC%EB%AC%B8%ED%99%94%EB%A7%88%EC%9D%84",
+    "addedAt": "2026-11-16T13:14:00+09:00",
+    "mapQuery": "양림동 근대역사문화마을"
   },
   {
     "id": "photo-gwangjuho-eco",
@@ -124,8 +131,9 @@
     "priceRange": "입장료 무료",
     "signature": "촬영 포인트 — 수변 습지 데크와 잔디광장, 노을 질 때 호수 반영. 억새·갈대는 10~11월",
     "note": "샘플 추천 · 무등산 자락이라 바람이 시원함. 광주 시내에서 차로 20분.",
-    "mapUrl": "https://maps.google.com/?cid=13673619909417432444",
-    "addedAt": "2026-11-16T13:18:00+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EA%B4%91%EC%A3%BC%ED%98%B8%20%ED%98%B8%EC%88%98%EC%83%9D%ED%83%9C%EC%9B%90",
+    "addedAt": "2026-11-16T13:18:00+09:00",
+    "mapQuery": "광주호 호수생태원"
   },
   {
     "id": "photo-juknokwon",
@@ -140,8 +148,9 @@
     "priceRange": "성인 3,000원 · 청소년 1,500원",
     "signature": "촬영 포인트 — 대나무숲 8길의 죽림 터널, 봉황루 전망대에서 내려다보는 대숲. 이른 오전이 한산",
     "note": "샘플 추천 · 광주에서 차로 30분. 후문(죽향문화로 363)은 시가문화촌과 이어짐.",
-    "mapUrl": "https://maps.google.com/?cid=1813068197343613101",
-    "addedAt": "2026-11-16T13:22:00+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EC%A3%BD%EB%85%B9%EC%9B%90",
+    "addedAt": "2026-11-16T13:22:00+09:00",
+    "mapQuery": "죽녹원"
   },
   {
     "id": "suwan-hwangsolchon",
@@ -156,8 +165,9 @@
     "priceRange": "1인 2만 원대 (양념돼지갈비 18,000 · 갈비정식 23,000원)",
     "signature": "양념돼지갈비 18,000원 · 군갈비 20,000원 · 갈비정식 23,000원",
     "note": "수완 대표 갈비집, 네이버 방문자 리뷰 3,800여 건. 매장이 넓고 놀이방·단체석이 있어 가족 모임이나 회식 첫 끼로 무난해요.",
-    "mapUrl": "https://maps.google.com/?cid=11530340214230198999",
-    "addedAt": "2026-11-16T15:22:00+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%ED%99%A9%EC%86%94%EC%B4%8C%20%EC%88%98%EC%99%84%EC%A0%90",
+    "addedAt": "2026-11-16T15:22:00+09:00",
+    "mapQuery": "황솔촌 수완점"
   },
   {
     "id": "suwan-form",
@@ -172,8 +182,9 @@
     "priceRange": "1인 3만 원대 (파스타·뇨끼 22,000~26,000원)",
     "signature": "크림뇨끼 24,000원 · 문어요리 28,000원 · 돼지항정살 스테이크 35,000원",
     "note": "제철 재료로 바꿔가며 내는 레스토랑&바. 와인 페어링과 콜키지, 기념일 혜택이 있고 예약하고 가는 편이 안전해요. 휴무일이 달라서 네이버 예약으로 한 번 더 확인.",
-    "mapUrl": "https://maps.google.com/?cid=8166775792219455576",
-    "addedAt": "2026-11-16T15:22:20+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EC%88%98%EC%99%84%EC%A7%80%EA%B5%AC%ED%8F%BC%20%EA%B4%91%EC%A3%BC%20%EA%B4%91%EC%82%B0%EA%B5%AC",
+    "addedAt": "2026-11-16T15:22:20+09:00",
+    "mapQuery": "수완지구폼 광주 광산구"
   },
   {
     "id": "suwan-jaribong-gukbap",
@@ -188,8 +199,9 @@
     "priceRange": "1만 원 이하 (국밥 9,000원~)",
     "signature": "자리봉국밥 9,000원 · 암뽕순대국밥 9,500원 · 특모듬국밥 12,000원",
     "note": "브레이크 없이 하루 종일 열어서 혼밥·해장에 편해요. 특모듬은 그릇부터 커서 배고플 때, 다대기는 따로 덜어 넣으면 순해집니다.",
-    "mapUrl": "https://maps.google.com/?cid=15095138363581526945",
-    "addedAt": "2026-11-16T15:22:40+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EA%B4%91%EC%A3%BC%20%EA%B4%91%EC%82%B0%EA%B5%AC%20%EC%9E%A5%EC%8B%A0%EB%A1%9C20%EB%B2%88%EA%B8%B8%2010",
+    "addedAt": "2026-11-16T15:22:40+09:00",
+    "mapQuery": "광주 광산구 장신로20번길 10"
   },
   {
     "id": "suwan-rookie-sushi",
@@ -204,8 +216,9 @@
     "priceRange": "2~3만 원대 (모둠초밥 20,000~30,000원)",
     "signature": "루키모둠초밥(10p) 20,000원 · 루키동 22,000원 · 루키스페셜초밥(13p) 30,000원",
     "note": "수완에서 초밥 제대로 먹고 싶을 때 가는 곳. 단골 이름을 붙인 정민이초밥(12p, 25,000원)이 시그니처예요.",
-    "mapUrl": "https://maps.google.com/?cid=15829868179595587960",
-    "addedAt": "2026-11-16T15:23:00+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EB%A3%A8%ED%82%A4%EC%B4%88%EB%B0%A5%20%EC%88%98%EC%99%84%EC%A7%81%EC%98%81%EC%A0%90",
+    "addedAt": "2026-11-16T15:23:00+09:00",
+    "mapQuery": "루키초밥 수완직영점"
   },
   {
     "id": "suwan-kirikiri-bakery",
@@ -220,8 +233,9 @@
     "priceRange": "빵 4,200~6,600원 · 음료 4,800~6,500원",
     "signature": "명란소금빵 4,500원 · 롱카스테라 4,600원 · 크루키·베이글",
     "note": "소금빵 종류가 많은 베이커리 카페. 주말엔 오후 전에 품절되는 때가 있어 캐치테이블로 예약·확인하고 가면 좋아요. 테라스·단체석 있음.",
-    "mapUrl": "https://maps.google.com/?cid=16019408358628012324",
-    "addedAt": "2026-11-16T15:23:20+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%ED%82%A4%EB%A6%AC%ED%82%A4%EB%A6%AC%20%EB%B2%A0%EC%9D%B4%EC%BB%A4%EB%A6%AC%20%ED%95%98%EC%9A%B0%EC%8A%A4",
+    "addedAt": "2026-11-16T15:23:20+09:00",
+    "mapQuery": "키리키리 베이커리 하우스"
   },
   {
     "id": "suwan-kozel-dark",
@@ -236,8 +250,9 @@
     "priceRange": "",
     "signature": "코젤 흑맥주(다크) · 슈바인스학세",
     "note": "2012년부터 수완에서 영업한 코젤 흑맥주 전문점. 늦게까지 열어서 밥약 2차로 쓰기 좋아요.",
-    "mapUrl": "https://maps.google.com/?cid=14710764886494471023",
-    "addedAt": "2026-11-16T15:23:40+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EA%B4%91%EC%A3%BC%20%EA%B4%91%EC%82%B0%EA%B5%AC%20%EC%88%98%EC%99%84%EB%A1%9C52%EB%B2%88%EA%B8%B8%201-4",
+    "addedAt": "2026-11-16T15:23:40+09:00",
+    "mapQuery": "광주 광산구 수완로52번길 1-4"
   },
   {
     "id": "cheomdan-bohyangmi",
@@ -252,8 +267,9 @@
     "priceRange": "1인 2~3만 원대 (한정식·보쌈)",
     "signature": "17첩 할머니 밥상 · 보향보쌈 · 홍어삼합",
     "note": "한정식·보쌈집. 단독 룸과 홀이 있어 회식·상견례 자리로도 쓰기 좋아요. 첨단에서 밥약 상석이 필요할 때.",
-    "mapUrl": "https://maps.google.com/?cid=9333759553438434206",
-    "addedAt": "2026-11-16T15:24:00+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EB%B3%B4%ED%96%A5%EB%AF%B8%20%EA%B4%91%EC%A3%BC%20%EA%B4%91%EC%82%B0%EA%B5%AC",
+    "addedAt": "2026-11-16T15:24:00+09:00",
+    "mapQuery": "보향미 광주 광산구"
   },
   {
     "id": "cheomdan-gongwon-gukbap",
@@ -268,8 +284,9 @@
     "priceRange": "1만 원 안팎 (모듬국밥 11,000원~)",
     "signature": "풍성한 모듬국밥 11,000원 · 항정수육국밥 12,000원 · 곱창전골",
     "note": "네이버 리뷰 8,600여 건의 24시 국밥집, 새벽 해장으로 좋아요. 구글 지도엔 월·일 휴무로 표기돼 있어 이른 시간에 갈 땐 전화 확인.",
-    "mapUrl": "https://maps.google.com/?cid=8050910989347140319",
-    "addedAt": "2026-11-16T15:24:20+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EC%B2%A8%EB%8B%A8%EA%B3%B5%EC%9B%90%EA%B5%AD%EB%B0%A5",
+    "addedAt": "2026-11-16T15:24:20+09:00",
+    "mapQuery": "첨단공원국밥"
   },
   {
     "id": "cheomdan-libbe",
@@ -284,8 +301,9 @@
     "priceRange": "빵 3,000~6,600원 · 브런치 14,500~19,000원",
     "signature": "누룽지 캉파뉴 5,200원 · 명란소금빵 5,200원 · 에그인헬 샥슈카 19,000원",
     "note": "쌍암제 맞은편 브런치 카페. 저녁 8시 이후 빵 50% 할인, 반려동물 동반과 단체석 가능. 네이버 평점 4.8대.",
-    "mapUrl": "https://maps.google.com/?cid=4906754769223336699",
-    "addedAt": "2026-11-16T15:24:40+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EB%A6%AC%EB%B8%8C%EB%B2%A0%20%EC%B2%A8%EB%8B%A8",
+    "addedAt": "2026-11-16T15:24:40+09:00",
+    "mapQuery": "리브베 첨단"
   },
   {
     "id": "cheomdan-rovadagaku",
@@ -300,8 +318,9 @@
     "priceRange": "1인 3~4만 원대",
     "signature": "후토마키(10p) 24,000원 · 모둠꼬치 7종 18,900원 · 호르몬나베 24,000원",
     "note": "첨단 이자카야. 2~10인 룸이 있어 조용히 마시기 좋고, 늦게까지 열어요.",
-    "mapUrl": "https://maps.google.com/?cid=4232875477677250037",
-    "addedAt": "2026-11-16T15:25:00+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EB%A1%9C%EB%B0%94%EB%8B%A4%EA%B0%80%EC%BF%A0%20%EA%B4%91%EC%A3%BC",
+    "addedAt": "2026-11-16T15:25:00+09:00",
+    "mapQuery": "로바다가쿠 광주"
   },
   {
     "id": "cheomdan-ppyeokaljip",
@@ -316,8 +335,9 @@
     "priceRange": "1인 2만 원대 (뼈구이·수육 34,000원~)",
     "signature": "직화뼈구이 34,000원 · 뼈수육 34,000원 · 왕뼈칼국수 8,900원",
     "note": "네이버 평점 4.88에 리뷰 5,600여 건. 점심엔 직화뼈구이 주문이 안 된다는 후기가 있으니 저녁에 가면 안전해요.",
-    "mapUrl": "https://maps.google.com/?cid=10326868529066981169",
-    "addedAt": "2026-11-16T15:25:20+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EB%BC%88%EC%B9%BC%EC%A7%91%20%EC%B2%A8%EB%8B%A8%EB%B3%B8%EC%A0%90",
+    "addedAt": "2026-11-16T15:25:20+09:00",
+    "mapQuery": "뼈칼집 첨단본점"
   },
   {
     "id": "sangmu-sushi",
@@ -332,8 +352,9 @@
     "priceRange": "1~2만 원대 (점심특선 10,900원~)",
     "signature": "상무 스페셜 초밥(14p) 26,900원 · 진심초밥세트 14,900원 · 점심특선 A 10,900원",
     "note": "브레이크 없이 계속 열어 혼밥·점심 약속에 편한 초밥집. 포장·배달도 되고 2024·2025 광주맛집 명단에 올랐어요.",
-    "mapUrl": "https://maps.google.com/?cid=17456810588509184776",
-    "addedAt": "2026-11-16T15:25:40+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EC%83%81%EB%AC%B4%EC%B4%88%EB%B0%A5%20%EC%83%81%EB%AC%B4%EC%A0%90",
+    "addedAt": "2026-11-16T15:25:40+09:00",
+    "mapQuery": "상무초밥 상무점"
   },
   {
     "id": "sangmu-funis",
@@ -348,8 +369,9 @@
     "priceRange": "음료 5,000~8,000원 · 케이크 8,000원대",
     "signature": "스카치솔티크림 8,000원 · 퍼니스 피자 · 케이크",
     "note": "자정까지 하는 대형 카페. 지하는 볼링장, 위층은 스크린골프라 밥약 뒤 2차로 묶기 좋아요. 예약제 단체룸 있음.",
-    "mapUrl": "https://maps.google.com/?cid=7256210382634912565",
-    "addedAt": "2026-11-16T15:26:00+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%ED%8D%BC%EB%8B%88%EC%8A%A4%20%EC%B9%B4%ED%8E%98%EC%95%A4%EB%9D%BC%EC%9A%B4%EC%A7%80",
+    "addedAt": "2026-11-16T15:26:00+09:00",
+    "mapQuery": "퍼니스 카페앤라운지"
   },
   {
     "id": "sangmu-hanabi",
@@ -364,8 +386,9 @@
     "priceRange": "1인 5만 원 이상 (양념갈비살 한 판 48,000원~)",
     "signature": "양념갈비살 한 판 48,000원 · 하나비모듬 51,000원 · 오니기리 9,000원",
     "note": "비장탄 화로구이 이자카야로 상무에서 12년 넘게 자리 잡은 곳. 고기값이 있으니 예약하고 각오하고 가는 편이 좋아요.",
-    "mapUrl": "https://maps.google.com/?cid=4268770042315627977",
-    "addedAt": "2026-11-16T15:26:20+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%ED%95%98%EB%82%98%EB%B9%84%20%EA%B4%91%EC%A3%BC%20%EC%84%9C%EA%B5%AC",
+    "addedAt": "2026-11-16T15:26:20+09:00",
+    "mapQuery": "하나비 광주 서구"
   },
   {
     "id": "sangmu-bueokgan",
@@ -380,8 +403,9 @@
     "priceRange": "1인 2만 원대 (파스타 19,000원~)",
     "signature": "까르보나라 19,000원 · 쿵파오 치킨 필라프 22,000원 · 커플세트A 48,000원",
     "note": "유니클로·다이소 서광주점 옆, 홀이 넓은 유럽풍 양식집. 구글 평점 4.9에 리뷰 370여 건.",
-    "mapUrl": "https://maps.google.com/?cid=13633218246901832498",
-    "addedAt": "2026-11-16T15:26:40+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EB%B6%80%EC%97%8C%EA%B0%84%20%EC%83%81%EB%AC%B4%EC%A0%90",
+    "addedAt": "2026-11-16T15:26:40+09:00",
+    "mapQuery": "부엌간 상무점"
   },
   {
     "id": "dongmyeong-tsubame",
@@ -396,8 +420,9 @@
     "priceRange": "1~2만 원대 (텐동 11,000원~)",
     "signature": "츠바메 텐동 11,000원 · 츠바메스시(13pcs) 18,000원 · 냉소바 10,000원",
     "note": "동명교회 근처 골목의 작은 일식집. 홀이 좁아 점심엔 줄이 생기고, 아기의자는 있어요. 튀김은 갓 튀겨 나옵니다.",
-    "mapUrl": "https://maps.google.com/?cid=8694089319282310404",
-    "addedAt": "2026-11-16T15:27:00+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EA%B4%91%EC%A3%BC%20%EB%8F%99%EA%B5%AC%20%EB%8F%99%EB%AA%85%EB%A1%9C14%EB%B2%88%EA%B8%B8%2026",
+    "addedAt": "2026-11-16T15:27:00+09:00",
+    "mapQuery": "광주 동구 동명로14번길 26"
   },
   {
     "id": "dongmyeong-cafetailor",
@@ -412,8 +437,9 @@
     "priceRange": "칵테일 12,000~20,000원",
     "signature": "계절 칵테일 — 여름 19,000원 · 겨울 17,000원 · 러스크 토스트 10,000원",
     "note": "얼음 모양과 꽃 장식까지 신경 쓴 칵테일바. 조용하고 앉아서 수다 떨기 좋아 밥약 2차로 딱이에요.",
-    "mapUrl": "https://maps.google.com/?cid=117837947929633796",
-    "addedAt": "2026-11-16T15:27:20+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EC%B9%B4%ED%94%84%ED%85%8C%EC%9D%BC%EB%9F%AC",
+    "addedAt": "2026-11-16T15:27:20+09:00",
+    "mapQuery": "카프테일러"
   },
   {
     "id": "dongmyeong-longtime-nc",
@@ -428,8 +454,9 @@
     "priceRange": "피자 18,500~20,500원 · 수제맥주 별도",
     "signature": "롱타임노씨 피자 18,500원 · 하프&하프 20,500원 · 수제맥주 19종",
     "note": "CU 건물 2층, 흑미 도우 피자에 수제맥주를 곁들이는 피맥집. 동명동에서 늦게까지 앉아 있기 좋아요.",
-    "mapUrl": "https://maps.google.com/?cid=183078924278886223",
-    "addedAt": "2026-11-16T15:27:40+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EB%A1%B1%ED%83%80%EC%9E%84%EB%85%B8%EC%94%A8%20%EA%B4%91%EC%A3%BC%EB%8F%99%EB%AA%85%EC%A0%90",
+    "addedAt": "2026-11-16T15:27:40+09:00",
+    "mapQuery": "롱타임노씨 광주동명점"
   },
   {
     "id": "dongmyeong-strukt",
@@ -444,8 +471,9 @@
     "priceRange": "아메리카노 5,000원 · 에이드·티 6,000원대",
     "signature": "시트러스티 · 스콘·케이크 · 야외 테라스 자리",
     "note": "골목 두 동을 쓰는 콘크리트 톤 대형 카페. 사진 찍기 좋고 노트북 작업하기도 편해요.",
-    "mapUrl": "https://maps.google.com/?cid=10651248029067874722",
-    "addedAt": "2026-11-16T15:28:00+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EC%8A%A4%ED%8A%B8%EB%9F%AD%ED%8A%B8",
+    "addedAt": "2026-11-16T15:28:00+09:00",
+    "mapQuery": "스트럭트"
   },
   {
     "id": "yangnim-hoyangholim",
@@ -460,8 +488,9 @@
     "priceRange": "음료 4,500~6,500원 · 디저트 2,500~17,000원",
     "signature": "인절미와플 8,000원 · 개성주악 2,500원 · 흑임자 바스크치즈케이크 6,500원",
     "note": "한옥을 고쳐 쓴 로스터리 카페. 창살 사이로 햇살이 들어오는 자리가 예뻐서 양림동 사진 산책 코스로 묶기 좋아요.",
-    "mapUrl": "https://maps.google.com/?cid=7560008067505179656",
-    "addedAt": "2026-11-16T15:28:20+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%ED%98%B8%EC%96%91%ED%98%B8%EB%A6%BC",
+    "addedAt": "2026-11-16T15:28:20+09:00",
+    "mapQuery": "호양호림"
   },
   {
     "id": "yangnim-honest-sixty",
@@ -476,8 +505,9 @@
     "priceRange": "1인 2~3만 원대 (14,000~29,000원)",
     "signature": "레드와인소스 소꼬리 스튜 & 보리 리조또 29,000원 · 미드나잇 블루팝 24,000원",
     "note": "오너셰프가 혼자 꾸리는 핸드메이드 다이닝. 대기가 2팀 이상이면 테이블링 원격줄서기를 쓰고, 월요일은 쉬어요.",
-    "mapUrl": "https://maps.google.com/?cid=18306785121231038824",
-    "addedAt": "2026-11-16T15:28:40+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EC%96%B4%EB%8B%88%EC%8A%A4%ED%8A%B8%EC%8B%9D%EC%8A%A4%ED%8B%B0%20%EC%96%91%EB%A6%BC",
+    "addedAt": "2026-11-16T15:28:40+09:00",
+    "mapQuery": "어니스트식스티 양림"
   },
   {
     "id": "yangnim-cafe1890",
@@ -492,8 +522,9 @@
     "priceRange": "음료 4,000~5,000원 · 디저트 6,500~7,500원",
     "signature": "1890클래식 티라미수 7,500원 · 바나나브륄레푸딩 6,500원 · 단짠콘파나",
     "note": "양림동 '10년후그라운드' 건물 카페. 전통주와 맥주도 팔아서 낮술 겸 카페로도 쓸 수 있어요.",
-    "mapUrl": "https://maps.google.com/?cid=234532963773967942",
-    "addedAt": "2026-11-16T15:29:00+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EC%B9%B4%ED%8E%981890%20%EA%B4%91%EC%A3%BC",
+    "addedAt": "2026-11-16T15:29:00+09:00",
+    "mapQuery": "카페1890 광주"
   },
   {
     "id": "photo-sajik-tower",
@@ -508,8 +539,9 @@
     "priceRange": "무료 (망원경 무료)",
     "signature": "촬영 포인트 — 타워 위층에서 사직공원 숲과 시내 파노라마. 해 지고 조명 켜질 때가 하이라이트",
     "note": "엘리베이터로 올라가 야간에도 열려 있어요. 무등산과 시내를 한 장에 담기 좋습니다.",
-    "mapUrl": "https://maps.google.com/?cid=12429014874363815834",
-    "addedAt": "2026-11-16T15:29:20+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EC%82%AC%EC%A7%81%EA%B3%B5%EC%9B%90%20%EC%A0%84%EB%A7%9D%ED%83%80%EC%9B%8C",
+    "addedAt": "2026-11-16T15:29:20+09:00",
+    "mapQuery": "사직공원 전망타워"
   },
   {
     "id": "photo-jeonil-245",
@@ -524,8 +556,9 @@
     "priceRange": "무료",
     "signature": "촬영 포인트 — 옥상에서 금남로와 무등산 조망, 노출 콘크리트 복도·계단의 기하학 구도",
     "note": "5·18 기념공간과 디지털정보도서관이 있는 건물. 문화전당역 4번 출구에서 3분이라 문화전당과 묶어 걷기 좋아요.",
-    "mapUrl": "https://maps.google.com/?cid=3491004599912756136",
-    "addedAt": "2026-11-16T15:29:40+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EC%A0%84%EC%9D%BC%EB%B9%8C%EB%94%A9245",
+    "addedAt": "2026-11-16T15:29:40+09:00",
+    "mapQuery": "전일빌딩245"
   },
   {
     "id": "photo-1913-songjeong",
@@ -540,8 +573,9 @@
     "priceRange": "입장 무료 · 먹거리 3,000~20,000원",
     "signature": "촬영 포인트 — 시장 골목 간판과 좌판, 저녁 네온. 광주송정역에서 도보 3분",
     "note": "영명국밥·현대국밥, 오리날개튀김, 프리미엄 호두과자까지. 기차 시간 남을 때 한 바퀴 돌기 좋아요.",
-    "mapUrl": "https://maps.google.com/?cid=2712408201260201704",
-    "addedAt": "2026-11-16T15:30:00+09:00"
+    "mapUrl": "https://map.naver.com/p/search/1913%EC%86%A1%EC%A0%95%EC%97%AD%EC%8B%9C%EC%9E%A5",
+    "addedAt": "2026-11-16T15:30:00+09:00",
+    "mapQuery": "1913송정역시장"
   },
   {
     "id": "photo-pungam-lake",
@@ -556,8 +590,9 @@
     "priceRange": "무료",
     "signature": "촬영 포인트 — 2.2km 산책로에서 호수 반영과 노을, 5~6월 장미원(140여 종)",
     "note": "음악분수·야외음악당·작은도서관이 있는 도심 호수공원. 저녁 산책 겸 가볍게 들르기 좋아요.",
-    "mapUrl": "https://maps.google.com/?cid=12918704515813691328",
-    "addedAt": "2026-11-16T15:30:20+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%ED%92%8D%EC%95%94%ED%98%B8%EC%88%98%EA%B3%B5%EC%9B%90",
+    "addedAt": "2026-11-16T15:30:20+09:00",
+    "mapQuery": "풍암호수공원"
   },
   {
     "id": "photo-jeungsimsa",
@@ -572,8 +607,9 @@
     "priceRange": "무료 (주차만 유료)",
     "signature": "촬영 포인트 — 주차장에서 증심교·계곡을 따라 오르는 숲길, 10~11월 단풍과 계곡 물",
     "note": "왕복 4.6km, 1시간 30분~2시간 30분 코스. 절 중턱 계곡 바위에서 찍는 물 사진이 좋아요.",
-    "mapUrl": "https://maps.google.com/?cid=10228394876994263035",
-    "addedAt": "2026-11-16T15:30:40+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EC%A6%9D%EC%8B%AC%EC%82%AC",
+    "addedAt": "2026-11-16T15:30:40+09:00",
+    "mapQuery": "증심사"
   },
   {
     "id": "photo-metasequoia",
@@ -588,8 +624,9 @@
     "priceRange": "성인 2,000원 · 청소년·군인 1,000원 · 어린이 700원 (6세 이하·65세 이상 무료)",
     "signature": "촬영 포인트 — 길 가운데서 뻗어 올라가는 수직 구도, 이른 오전 역광·안개. 단풍철엔 문 열자마자",
     "note": "성인 입장료는 담양사랑상품권으로 전액 환급되는 제도가 2026년부터 시행 중이에요. 광주에서 차로 30분.",
-    "mapUrl": "https://maps.google.com/?cid=3828562593243047443",
-    "addedAt": "2026-11-16T15:31:00+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EB%8B%B4%EC%96%91%20%EB%A9%94%ED%83%80%EC%84%B8%EC%BF%BC%EC%9D%B4%EC%95%84%EA%B8%B8",
+    "addedAt": "2026-11-16T15:31:00+09:00",
+    "mapQuery": "담양 메타세쿼이아길"
   },
   {
     "id": "photo-soswaewon",
@@ -604,8 +641,9 @@
     "priceRange": "성인 2,000원 · 청소년·군인 1,000원 · 어린이 700원",
     "signature": "촬영 포인트 — 광풍각과 계류, 대나무 사이로 드는 오전 빛. 물가에 낮게 앉아 담는 앵글",
     "note": "명승 제40호 조선 별서정원. 담양 읍내가 아니라 가사문학면이라 동선을 따로 잡아야 해요.",
-    "mapUrl": "https://maps.google.com/?cid=8221395938765077652",
-    "addedAt": "2026-11-16T15:31:20+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EB%8B%B4%EC%96%91%20%EC%86%8C%EC%87%84%EC%9B%90",
+    "addedAt": "2026-11-16T15:31:20+09:00",
+    "mapQuery": "담양 소쇄원"
   },
   {
     "id": "photo-gwanbang-forest",
@@ -620,8 +658,9 @@
     "priceRange": "무료",
     "signature": "촬영 포인트 — 1.2km 제방 숲의 터널, 아침 안개 낀 때와 늦가을 낙엽 깔린 길",
     "note": "담양국수거리와 붙어 있어 국수 한 그릇과 묶기 좋아요. 300년 넘은 푸조나무·느티나무가 이어집니다.",
-    "mapUrl": "https://maps.google.com/?cid=7109761479209590377",
-    "addedAt": "2026-11-16T15:31:40+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EB%8B%B4%EC%96%91%20%EA%B4%80%EB%B0%A9%EC%A0%9C%EB%A6%BC",
+    "addedAt": "2026-11-16T15:31:40+09:00",
+    "mapQuery": "담양 관방제림"
   },
   {
     "id": "photo-seryangji",
@@ -636,8 +675,9 @@
     "priceRange": "무료 (주차 무료)",
     "signature": "촬영 포인트 — 4월 초 새벽 물안개와 산벚꽃 수면 반영, 데크 전망대. 일출 전에 도착",
     "note": "CNN '한국에서 가봐야 할 50곳'에 든 저수지. 호숫가 600m 둘레길부터 4km 세량 누리길까지 걸을 수 있어요.",
-    "mapUrl": "https://maps.google.com/?cid=14500945379357583391",
-    "addedAt": "2026-11-16T15:32:00+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%ED%99%94%EC%88%9C%20%EC%84%B8%EB%9F%89%EC%A7%80",
+    "addedAt": "2026-11-16T15:32:00+09:00",
+    "mapQuery": "화순 세량지"
   },
   {
     "id": "photo-suncheonman",
@@ -652,8 +692,9 @@
     "priceRange": "성인 10,000원 · 청소년 7,000원 · 어린이 5,000원",
     "signature": "촬영 포인트 — 갈대군락과 S자 물길, 용산전망대에서 내려다보는 노을. 해 진 뒤 30분",
     "note": "광주에서 차로 1시간 남짓. 갈대는 10~11월, 겨울엔 흑두루미. 매표소에서 전망대까지 거리가 제법 있어요.",
-    "mapUrl": "https://maps.google.com/?cid=12391471917536778272",
-    "addedAt": "2026-11-16T15:32:20+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EC%88%9C%EC%B2%9C%EB%A7%8C%EC%8A%B5%EC%A7%80",
+    "addedAt": "2026-11-16T15:32:20+09:00",
+    "mapQuery": "순천만습지"
   },
   {
     "id": "photo-daehan-dawon",
@@ -668,8 +709,9 @@
     "priceRange": "성인 4,000원 · 청소년·경로·군인 3,000원 (6세 미만 무료)",
     "signature": "촬영 포인트 — 곡선으로 이어지는 녹차밭 능선, 이른 아침 물안개. 정상 전망대에서 내려다보는 구도",
     "note": "드론·음식물 반입·취사는 안 됩니다. 매표소 옆 녹차 아이스크림이 유명하고, 경사가 있어 편한 신발 필수.",
-    "mapUrl": "https://maps.google.com/?cid=11373576786874351380",
-    "addedAt": "2026-11-16T15:32:40+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EB%B3%B4%EC%84%B1%20%EB%8C%80%ED%95%9C%EB%8B%A4%EC%9B%90",
+    "addedAt": "2026-11-16T15:32:40+09:00",
+    "mapQuery": "보성 대한다원"
   },
   {
     "id": "photo-donggung-wolji",
@@ -684,8 +726,9 @@
     "priceRange": "성인 3,000원 · 청소년·군인 2,000원 · 어린이 1,000원",
     "signature": "촬영 포인트 — 연못 건너편에서 전각과 수면 반영. 일몰 30분 전 도착해 점등까지 기다리기",
     "note": "야경 시간엔 사람이 많아 21:30 매표 마감 직전엔 입장이 막힐 수 있어요. 주차장 만차 대비 여유 있게.",
-    "mapUrl": "https://maps.google.com/?cid=15982962502447630845",
-    "addedAt": "2026-11-16T15:33:00+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EA%B2%BD%EC%A3%BC%20%EB%8F%99%EA%B6%81%EA%B3%BC%20%EC%9B%94%EC%A7%80",
+    "addedAt": "2026-11-16T15:33:00+09:00",
+    "mapQuery": "경주 동궁과 월지"
   },
   {
     "id": "photo-nodeul-island",
@@ -700,7 +743,8 @@
     "priceRange": "무료 (공연·행사 별도)",
     "signature": "촬영 포인트 — 한강대교 아래 노을과 다리 기둥, 노들서가 앞 잔디. 해 질 무렵이 가장 좋음",
     "note": "월요일은 쉬고 야외 공간만 열려요. 9호선 노들역 2번 출구에서 600m, 주차보다 지하철이 편합니다.",
-    "mapUrl": "https://maps.google.com/?cid=15086970062978390454",
-    "addedAt": "2026-11-16T15:33:20+09:00"
+    "mapUrl": "https://map.naver.com/p/search/%EB%85%B8%EB%93%A4%EC%84%AC%20%EC%84%9C%EC%9A%B8%20%EC%9A%A9%EC%82%B0%EA%B5%AC",
+    "addedAt": "2026-11-16T15:33:20+09:00",
+    "mapQuery": "노들섬 서울 용산구"
   }
 ]

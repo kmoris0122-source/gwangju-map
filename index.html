@@ -455,6 +455,13 @@
   }
 
   /* ---------- cards ---------- */
+  /* 네이버 지도 검색 링크 — mapQuery가 있으면 그 검색어로, 없으면 장소명+동네로 만든다 */
+  function naverMapUrl(p) {
+    var q = p.mapQuery || [p.name, p.area].filter(Boolean).join(' ');
+    if (!q && p.mapUrl) return p.mapUrl;
+    return 'https://map.naver.com/p/search/' + encodeURIComponent(q);
+  }
+
   function metaRow(glyph, text, cls) {
     if (!text) return '';
     return '<div class="meta-row' + (cls ? ' ' + cls : '') + '">' +
@@ -495,7 +502,7 @@
         '</div>' +
         (p.note ? '<p class="note">' + esc(p.note) + '</p>' : '') +
         '<div class="actions">' +
-          '<a class="btn map" href="' + esc(p.mapUrl) + '" target="_blank" rel="noopener">지도 바로열기</a>' +
+          '<a class="btn map" href="' + esc(naverMapUrl(p)) + '" target="_blank" rel="noopener">🗺️ 네이버 지도</a>' +
           '<button class="btn icon' + (done ? ' on' : '') + '" type="button" data-act="check" ' +
             'aria-pressed="' + done + '" aria-label="다녀옴 체크">' + (done ? '✓' : '☑︎') + '</button>' +
           '<button class="btn icon" type="button" data-act="memo" aria-expanded="false" aria-label="개인 메모">✎</button>' +
@@ -676,8 +683,8 @@
         metaRow(isPhoto ? '🎟️' : '💰', p.priceRange) +
         metaRow(isPhoto ? '📸' : '⭐', p.signature, 'sig') +
         (p.note ? '<div class="result-note">' + esc(p.note) + '</div>' : '') +
-        '<a class="btn map" href="' + esc(p.mapUrl) + '" target="_blank" rel="noopener" ' +
-          'style="margin-top:4px">지도에서 열기</a>' +
+        '<a class="btn map" href="' + esc(naverMapUrl(p)) + '" target="_blank" rel="noopener" ' +
+          'style="margin-top:4px">🗺️ 네이버 지도</a>' +
       '</div>';
   }
 
