@@ -245,6 +245,7 @@
   body.mapmode header{padding-bottom:8px}
   #map{position:absolute;inset:0}
   .leaflet-container{font-family:inherit;background:#e8e0d6}
+  .leaflet-tile-pane{filter:saturate(.94) contrast(1.02)}
   .leaflet-control-zoom a{color:#241c15 !important}
   .leaflet-top.leaflet-right .leaflet-control{margin-top:14px;margin-right:12px}
 
@@ -433,7 +434,7 @@
   <footer>
     장소 정보는 Google·카카오 지도, 네이버 플레이스와 운영기관 안내에서 확인했어요.<br>
     영업·운영 시간과 요금은 바뀔 수 있으니 방문 전에 한 번 더 확인해 주세요.<br>
-    <span id="updated-line"></span> · 지도 ⓒ OpenStreetMap, CARTO
+    <span id="updated-line"></span> · 지도 ⓒ OpenStreetMap 기여자
   </footer>
 </main>
 
@@ -972,10 +973,11 @@
     }
     mapReady = true;
     map = L.map('map', { zoomControl: false, attributionControl: true });
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
-      subdomains: 'abcd',
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>'
+      subdomains: 'abc',
+      crossOrigin: true,
+      attribution: '지도 &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> 기여자'
     }).addTo(map);
     L.control.zoom({ position: 'topright' }).addTo(map);
     cluster = L.markerClusterGroup({
