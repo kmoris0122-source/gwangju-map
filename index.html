@@ -1023,6 +1023,11 @@
     clearTimeout(fitTimer);
     fitTimer = setTimeout(function () {
       if (!list.length) return;
+      if (view.area === '전체' && view.category === '전체' && view.status === '전체' &&
+          !view.q.trim() && !quick.parking && !quick.unvisited) {
+        map.setView(GWANGJU_CENTER, 10);
+        return;
+      }
       if (list.length === 1) {
         map.setView([list[0].lat, list[0].lng], 15);
         return;
@@ -1056,6 +1061,7 @@
     if (list.length === 1) { map.setView([list[0].lat, list[0].lng], 15); return; }
     var b = L.latLngBounds(list.map(function (p) { return [p.lat, p.lng]; }));
     map.fitBounds(b, { padding: [36, 36], maxZoom: 15 });
+    if (list.length === places.length) toast('전체 ' + list.length + '곳을 한눈에 봐요');
   }
   $('#btn-fit').addEventListener('click', fitAll);
 
