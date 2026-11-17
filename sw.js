@@ -1,12 +1,17 @@
 /* 광주 밥약 & 포토스팟 맵 — offline shell
-   거의 바뀌지 않는 껍데기는 캐시, 장소 데이터는 항상 네트워크 우선. */
-var CACHE = 'gwangju-map-v3';
+   껍데기(index.html·아이콘·지도 라이브러리)는 캐시, 장소 데이터는 항상 네트워크 우선. */
+var CACHE = 'gwangju-map-v4';
 var SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
   './icons/icon-180.png',
-  './icons/icon-192.png'
+  './icons/icon-192.png',
+  './vendor/leaflet.css',
+  './vendor/leaflet.js',
+  './vendor/leaflet.markercluster.js',
+  './vendor/MarkerCluster.css',
+  './vendor/MarkerCluster.Default.css'
 ];
 
 self.addEventListener('install', function (e) {

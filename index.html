@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>광주 밥약 &amp; 포토스팟 맵</title>
-<meta name="description" content="광주·전남의 밥약·카페·포토스팟을 동네별로 모아두고, 랜덤 룰렛으로 오늘 갈 한 곳을 고르는 개인 지도.">
+<meta name="description" content="광주·전남의 밥약·카페·포토스팟 149곳을 목록과 지도로 보고, 랜덤 룰렛으로 오늘 갈 한 곳을 고르는 개인 지도.">
 <meta name="theme-color" content="#fff8f1">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./icons/icon-180.png">
@@ -13,6 +13,9 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="광주 밥약">
+<link rel="stylesheet" href="./vendor/leaflet.css">
+<link rel="stylesheet" href="./vendor/MarkerCluster.css">
+<link rel="stylesheet" href="./vendor/MarkerCluster.Default.css">
 <style>
   :root{
     --bg:#fff8f1;
@@ -41,7 +44,11 @@
     font-size:16px;
     line-height:1.45;
     -webkit-font-smoothing:antialiased;
-    padding-bottom:calc(96px + env(safe-area-inset-bottom));
+  }
+  body.listmode{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+  body.mapmode{
+    height:100vh;height:100dvh;overflow:hidden;
+    display:flex;flex-direction:column;padding-bottom:0;
   }
   button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
   a{color:inherit}
@@ -50,7 +57,7 @@
 
   /* ---------- header ---------- */
   header{
-    position:relative;z-index:30;
+    position:relative;z-index:30;flex:0 0 auto;
     background:linear-gradient(180deg,#fff8f1 72%,rgba(255,248,241,.92));
     border-bottom:1px solid var(--line);
     padding-top:calc(10px + env(safe-area-inset-top));
@@ -65,6 +72,25 @@
   .brand h1{margin:0;font-size:19px;letter-spacing:-.02em;line-height:1.25}
   .brand p{margin:2px 0 0;font-size:12px;color:var(--ink-3);letter-spacing:-.01em}
 
+  /* view toggle */
+  .viewbar{display:flex;align-items:center;gap:8px;margin:10px 0 0}
+  .seg{
+    display:flex;gap:2px;padding:3px;border-radius:12px;
+    background:var(--surface-2);border:1px solid var(--line);flex:1 1 auto;
+  }
+  .seg button{
+    flex:1;border-radius:9px;padding:8px 6px;font-size:13.5px;font-weight:600;
+    color:var(--ink-3);transition:background .15s,color .15s,box-shadow .15s;
+  }
+  .seg button[aria-selected="true"]{
+    background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(90,60,30,.14);
+  }
+  .filterbtn{
+    flex:0 0 auto;border:1px solid var(--line);background:var(--surface);
+    border-radius:11px;padding:9px 12px;font-size:13px;font-weight:600;color:var(--ink-2);
+  }
+  .filterbtn[hidden]{display:none}
+
   .stats{
     display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
     margin:12px 0 10px;
@@ -75,13 +101,13 @@
   }
   .stat b{display:block;font-size:18px;letter-spacing:-.02em;line-height:1.2}
   .stat span{display:block;font-size:10.5px;color:var(--ink-3);margin-top:1px;white-space:nowrap}
-  .stat.upd b{font-size:12px;padding-top:4px;letter-spacing:-.01em}
-  .stat.upd span{margin-top:-1px}
   .stat.s-wishlist b{color:var(--accent)}
   .stat.s-favorite b{color:var(--mint)}
+  .stat.s-done b{color:#5b6875}
 
   /* ---------- filters ---------- */
   .filters{padding-bottom:10px}
+  .filters[hidden]{display:none}
   .searchrow{position:relative;margin-bottom:8px}
   .searchrow input{
     width:100%;appearance:none;border:1px solid var(--line);background:var(--surface);
@@ -98,9 +124,12 @@
   }
   .searchrow.has-text .clear{display:grid}
 
-  .chipgroup{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 0;
+  .chipgroup{
+    display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 0;
     -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 20px),transparent);
-    mask-image:linear-gradient(90deg,#000 calc(100% - 20px),transparent);}
+    mask-image:linear-gradient(90deg,#000 calc(100% - 20px),transparent);
+    scroll-behavior:smooth;
+  }
   .chipgroup::-webkit-scrollbar{display:none}
   .chipgroup + .chipgroup{margin-top:6px}
   .chipgroup::before{
@@ -116,13 +145,30 @@
   .chip[aria-pressed="true"]{
     background:var(--ink);border-color:var(--ink);color:#fff;font-weight:600;
   }
+  .chip.quick[aria-pressed="true"]{background:var(--accent);border-color:var(--accent)}
+
+  .filtersummary{
+    display:flex;align-items:center;gap:8px;margin:8px 0 10px;
+    font-size:12.5px;color:var(--ink-2);
+  }
+  .filtersummary[hidden]{display:none}
+  .filtersummary b{color:var(--ink)}
+  .filtersummary .edit{color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:2px;flex:0 0 auto}
 
   /* ---------- list ---------- */
   .resultline{
-    display:flex;align-items:center;justify-content:space-between;
+    display:flex;align-items:center;justify-content:space-between;gap:8px;
     margin:14px 0 8px;font-size:12px;color:var(--ink-3);
   }
-  .resultline .sortbtn{color:var(--ink-2);font-size:12px;text-decoration:underline;text-underline-offset:2px}
+  .sortwrap{display:flex;align-items:center;gap:5px;flex:0 0 auto}
+  .sortwrap label{font-size:11.5px;color:var(--ink-3)}
+  .sortwrap select{
+    appearance:none;-webkit-appearance:none;border:1px solid var(--line);background:var(--surface);
+    color:var(--ink-2);border-radius:9px;padding:5px 22px 5px 9px;font-size:12px;font-family:inherit;
+    background-image:linear-gradient(45deg,transparent 50%,#b7a798 50%),linear-gradient(135deg,#b7a798 50%,transparent 50%);
+    background-position:calc(100% - 12px) 11px,calc(100% - 8px) 11px;
+    background-size:4px 4px,4px 4px;background-repeat:no-repeat;outline:none;
+  }
 
   .card{
     background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
@@ -133,6 +179,7 @@
   .card.checked{border-color:#cfe9df;background:linear-gradient(180deg,#fff, #fbfffd)}
   .card-head{display:flex;align-items:flex-start;gap:10px}
   .card-head h2{margin:0;font-size:16.5px;letter-spacing:-.02em;line-height:1.3;flex:1}
+  .dist{flex:0 0 auto;font-size:11.5px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:3px 8px;white-space:nowrap}
   .badges{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
   .badge{
     font-size:11px;line-height:1;padding:5px 8px;border-radius:999px;
@@ -141,12 +188,16 @@
   .badge.area{background:#f4f0ff;border-color:#e6ddff;color:#6a4fd8}
   .badge.cat{background:#fff0e8;border-color:#ffe0d2;color:#c4502c}
   .badge.cat.photo{background:#e9f3ff;border-color:#d5e8ff;color:#1f6fb2}
+  .badge.cat.cafe{background:#fdf1e3;border-color:#f4e0c8;color:#94663a}
+  .badge.cat.bar{background:#f2ecff;border-color:#e6dcff;color:#6b46c9}
+  .badge.cat.solo{background:#e7f6f0;border-color:#d2ece2;color:#1f7d63}
   .badge.st-wishlist{background:var(--accent-soft);border-color:#ffd3c4;color:#c8452a;font-weight:600}
   .badge.st-favorite{background:var(--mint-soft);border-color:#c8ebdd;color:#1f7d63;font-weight:600}
   .badge.st-visited{background:#eef1f4;border-color:#dfe4ea;color:#5b6875}
   .badge.done{background:var(--mint-soft);border-color:#c8ebdf;color:#1f7d63;font-weight:600}
 
-  .meta{margin-top:10px;display:grid;gap:5px}  .meta-row{display:flex;gap:8px;font-size:13px;color:var(--ink-2);line-height:1.4}
+  .meta{margin-top:10px;display:grid;gap:5px}
+  .meta-row{display:flex;gap:8px;font-size:13px;color:var(--ink-2);line-height:1.4}
   .meta-row .k{flex:0 0 auto;width:18px;text-align:center;opacity:.85}
   .meta-row .v{flex:1;min-width:0}
   .meta-row .v a{color:inherit;text-decoration:underline;text-underline-offset:2px;text-decoration-color:#d9c8b8}
@@ -183,8 +234,56 @@
     text-align:center;padding:44px 16px;color:var(--ink-3);font-size:14px;
   }
   .empty b{display:block;font-size:15px;color:var(--ink-2);margin-bottom:4px}
+  .empty .btn{display:inline-flex;flex:0 0 auto;margin-top:12px;padding:9px 16px}
 
-  /* ---------- roulette ---------- */
+  /* ---------- map ---------- */
+  #mapview{display:none;flex:1 1 auto;min-height:0;position:relative;background:#e8e0d6}
+  body.mapmode #mapview{display:block}
+  body.mapmode #main{display:none}
+  body.mapmode .stats{display:none}
+  body.mapmode .brand p{display:none}
+  body.mapmode header{padding-bottom:8px}
+  #map{position:absolute;inset:0}
+  .leaflet-container{font-family:inherit;background:#e8e0d6}
+  .leaflet-control-zoom a{color:#241c15 !important}
+  .leaflet-top.leaflet-right .leaflet-control{margin-top:14px;margin-right:12px}
+
+  .pinwrap{background:none;border:0}
+  .pin{
+    width:32px;height:32px;border-radius:50% 50% 50% 6px;
+    transform:rotate(-45deg);
+    background:#fff;border:2.5px solid var(--pc,#ff6b4a);
+    box-shadow:0 3px 8px rgba(40,25,10,.3);
+    display:grid;place-items:center;
+  }
+  .pin span{transform:rotate(45deg);font-size:15px;line-height:1}
+  .pin.active{width:38px;height:38px;border-width:3px;box-shadow:0 6px 16px rgba(40,25,10,.4)}
+  .pin.active span{font-size:18px}
+
+  .clwrap{background:none;border:0}
+  .cl{
+    width:40px;height:40px;border-radius:50%;
+    background:rgba(255,255,255,.94);border:2.5px solid var(--accent);
+    color:#241c15;display:grid;place-items:center;
+    box-shadow:0 3px 10px rgba(40,25,10,.25);
+    font-size:13px;font-weight:800;letter-spacing:-.02em;
+  }
+  .cl.small{width:34px;height:34px;font-size:12px;border-color:#f0b39f}
+
+  .mapbtns{
+    position:absolute;right:12px;z-index:500;display:flex;flex-direction:column;gap:8px;
+    bottom:calc(88px + env(safe-area-inset-bottom));
+  }
+  .mapbtn{
+    display:flex;align-items:center;gap:6px;
+    background:var(--surface);border:1px solid var(--line);border-radius:999px;
+    padding:10px 14px;font-size:13px;font-weight:700;color:var(--ink);
+    box-shadow:0 4px 14px rgba(40,25,10,.18);
+  }
+  .mapbtn:active{transform:scale(.97)}
+  .mapbtn.locating{opacity:.65}
+
+  /* ---------- roulette fab ---------- */
   .fab{
     position:fixed;left:50%;transform:translateX(-50%);
     bottom:calc(16px + env(safe-area-inset-bottom));
@@ -203,6 +302,7 @@
     90%{transform:rotate(-8deg)}
   }
 
+  /* ---------- sheets ---------- */
   .sheet{
     position:fixed;inset:0;z-index:60;display:flex;align-items:flex-end;justify-content:center;
     background:rgba(36,28,21,.42);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);
@@ -215,9 +315,14 @@
     max-height:92vh;max-height:92dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;
     border-radius:22px 22px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));
     box-shadow:0 -12px 40px rgba(60,40,20,.18);animation:slideup .26s cubic-bezier(.2,.8,.3,1) both;
+    position:relative;
   }
   @keyframes slideup{from{transform:translateY(28px);opacity:.6}to{transform:none;opacity:1}}
   .sheet-label{margin:0;font-size:12px;color:var(--ink-3);text-align:center;letter-spacing:.02em}
+  .sheet-x{
+    position:absolute;right:10px;top:10px;width:34px;height:34px;border-radius:50%;
+    display:grid;place-items:center;color:var(--ink-3);font-size:16px;background:var(--surface-2);
+  }
   .stage{
     margin:10px 0 2px;min-height:104px;border-radius:16px;
     background:linear-gradient(160deg,#fff,#fff4ec);border:1px solid var(--line);
@@ -229,21 +334,27 @@
     animation:pop .09s ease;
   }
   @keyframes pop{from{transform:scale(.9);opacity:.5}to{transform:scale(1);opacity:1}}
-  .stage .final{
-    animation:bouncein .42s cubic-bezier(.2,1.3,.4,1) both;
-  }
+  .stage .final{animation:bouncein .42s cubic-bezier(.2,1.3,.4,1) both}
   @keyframes bouncein{0%{transform:scale(.82)}60%{transform:scale(1.04)}100%{transform:scale(1)}}
   .stage .final-name{font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1.3}
   .stage .final-sub{font-size:12.5px;color:var(--ink-3);margin-top:5px}
-  .sheet-actions{display:flex;gap:8px;margin-top:12px}
-  .sheet-actions .btn{padding:12px 8px}
+  .sheet-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .sheet-actions .btn{padding:12px 8px;flex:1 1 40%}
   .sheet-actions .btn.primary{background:var(--ink);border-color:var(--ink);color:#fff}
-  .sheet .result-meta{
+  .result-meta{
     margin-top:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;
     padding:12px;display:grid;gap:6px;
   }
-  .sheet .result-meta .meta-row{font-size:13px}
-  .sheet .result-note{font-size:12.5px;color:var(--ink-2);line-height:1.45}
+  .result-meta .meta-row{font-size:13px}
+  .result-note{font-size:12.5px;color:var(--ink-2);line-height:1.45;margin:0}
+
+  /* place sheet */
+  .pcard .phead{margin-top:4px}
+  .pcard h2{margin:6px 0 0;font-size:20px;letter-spacing:-.02em;line-height:1.3;padding-right:40px}
+  .pcard .pmeta{margin-top:10px;display:grid;gap:5px}
+  .pcard .pmeta .meta-row{font-size:13px}
+  .pcard .pnote{margin-top:10px;font-size:12.5px;color:var(--ink-2);background:var(--surface-2);border-radius:11px;padding:9px 11px;line-height:1.45}
+  .pcard .paddr{margin:8px 0 0;font-size:12px;color:var(--ink-3)}
 
   .toast{
     position:fixed;left:50%;transform:translateX(-50%) translateY(8px);
@@ -256,12 +367,14 @@
   footer{
     text-align:center;font-size:11px;color:var(--ink-3);padding:22px 16px 6px;line-height:1.6;
   }
+  footer a{text-decoration:underline;text-underline-offset:2px;color:var(--ink-3)}
+
   @media (prefers-reduced-motion:reduce){
     *{animation-duration:.001s !important;transition-duration:.001s !important}
   }
 </style>
 </head>
-<body>
+<body class="listmode">
 
 <header>
   <div class="wrap">
@@ -273,43 +386,70 @@
       </div>
     </div>
 
+    <div class="viewbar">
+      <div class="seg" role="tablist" aria-label="보기 방식">
+        <button id="tab-list" role="tab" aria-selected="true" type="button">📋 목록</button>
+        <button id="tab-map" role="tab" aria-selected="false" type="button">🗺️ 지도</button>
+      </div>
+      <button class="filterbtn" id="filter-toggle" type="button" hidden>🎛 필터</button>
+    </div>
+
     <div class="stats" id="stats" aria-label="요약">
       <div class="stat"><b id="stat-total">–</b><span>전체 장소</span></div>
       <div class="stat s-wishlist"><b id="stat-wish">–</b><span>가볼 곳</span></div>
       <div class="stat s-favorite"><b id="stat-fav">–</b><span>또 갈 곳</span></div>
-      <div class="stat upd"><b id="stat-updated">–</b><span>마지막 업데이트</span></div>
+      <div class="stat s-done"><b id="stat-done">–</b><span>다녀온 곳</span></div>
     </div>
 
-    <div class="filters">
+    <div class="filters" id="filters">
       <div class="searchrow" id="searchrow">
         <span class="mag" aria-hidden="true">🔍</span>
         <input id="search" type="search" inputmode="search" autocomplete="off"
                placeholder="상호·메뉴·메모 검색" aria-label="장소 검색">
-        <button class="clear" id="search-clear" aria-label="검색어 지우기">✕</button>
+        <button class="clear" id="search-clear" type="button" aria-label="검색어 지우기">✕</button>
       </div>
       <div class="chipgroup" data-label="동네" id="filter-area" role="group" aria-label="동네 필터"></div>
       <div class="chipgroup" data-label="종류" id="filter-category" role="group" aria-label="카테고리 필터"></div>
       <div class="chipgroup" data-label="상태" id="filter-status" role="group" aria-label="상태 필터"></div>
+      <div class="chipgroup" data-label="빠른" id="filter-quick" role="group" aria-label="빠른 필터"></div>
     </div>
+    <div class="filtersummary" id="filtersummary" hidden></div>
   </div>
 </header>
 
-<main class="wrap">
+<main class="wrap" id="main">
   <div class="resultline">
     <span id="result-count">불러오는 중…</span>
-    <button class="sortbtn" id="sort-toggle" type="button">정렬: 최근 추가</button>
+    <div class="sortwrap">
+      <label for="sort">정렬</label>
+      <select id="sort">
+        <option value="added">최근 추가</option>
+        <option value="name">가나다순</option>
+        <option value="near">가까운 순</option>
+      </select>
+    </div>
   </div>
   <div id="list"></div>
   <footer>
     장소 정보는 Google·카카오 지도, 네이버 플레이스와 운영기관 안내에서 확인했어요.<br>
-    영업·운영 시간과 요금은 바뀔 수 있으니 방문 전에 한 번 더 확인해 주세요.
+    영업·운영 시간과 요금은 바뀔 수 있으니 방문 전에 한 번 더 확인해 주세요.<br>
+    <span id="updated-line"></span> · 지도 ⓒ OpenStreetMap, CARTO
   </footer>
 </main>
+
+<section id="mapview" aria-label="지도">
+  <div id="map"></div>
+  <div class="mapbtns">
+    <button class="mapbtn" id="btn-fit" type="button">⤢ 전체 보기</button>
+    <button class="mapbtn" id="btn-locate" type="button">📍 내 주변</button>
+  </div>
+</section>
 
 <button class="fab" id="spin" type="button">
   <span class="dice" aria-hidden="true">🎲</span> 랜덤 룰렛
 </button>
 
+<!-- 룰렛 -->
 <div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="sheet-title">
   <div class="sheet-card">
     <p class="sheet-label" id="sheet-title">🎲 지금 조건에서 한 곳</p>
@@ -324,8 +464,30 @@
   </div>
 </div>
 
+<!-- 장소 상세 -->
+<div class="sheet" id="psheet" hidden role="dialog" aria-modal="true" aria-labelledby="p-name">
+  <div class="sheet-card pcard">
+    <button class="sheet-x" id="psheet-close" type="button" aria-label="닫기">✕</button>
+    <div class="phead">
+      <div class="badges" id="p-badges"></div>
+      <h2 id="p-name">–</h2>
+      <p class="paddr" id="p-addr"></p>
+    </div>
+    <div class="pmeta" id="p-meta"></div>
+    <p class="pnote" id="p-note" hidden></p>
+    <div class="sheet-actions">
+      <a class="btn map" id="p-naver" target="_blank" rel="noopener">🗺️ 네이버 지도</a>
+      <button class="btn" id="p-done" type="button">☑︎ 가봤어요</button>
+      <button class="btn" id="p-wish" type="button">♥ 가볼래요</button>
+      <a class="btn" id="p-call" hidden>📞 전화</a>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<script src="./vendor/leaflet.js"></script>
+<script src="./vendor/leaflet.markercluster.js"></script>
 <script>
 (function () {
   'use strict';
@@ -339,11 +501,29 @@
     { key: 'favorite', label: '또 갈 곳' }
   ];
   var STATUS_LABEL = { wishlist: '가볼 곳', favorite: '또 갈 곳', visited: '방문함' };
+  var QUICKS = [
+    { key: 'parking', label: '🅿️ 주차 가능' },
+    { key: 'unvisited', label: '✅ 안 가본 곳' }
+  ];
+  var CAT_STYLE = {
+    '밥약/식사': { emoji: '🍚', color: '#ff6b4a', cls: '' },
+    '카페': { emoji: '☕', color: '#b07a45', cls: 'cafe' },
+    '포토스팟': { emoji: '📸', color: '#3f8fd6', cls: 'photo' },
+    '술집': { emoji: '🍶', color: '#8b5cf6', cls: 'bar' },
+    '혼밥': { emoji: '🍜', color: '#2e9c7f', cls: 'solo' }
+  };
+  var GWANGJU_CENTER = [35.16, 126.9];
 
   var places = [];
   var local = loadLocal();
   var view = { area: '전체', category: '전체', status: '전체', q: '', sort: 'added' };
+  var quick = { parking: false, unvisited: false };
+  var mode = 'list';
   var spinning = false;
+  var myLoc = null;
+  var map = null, cluster = null, markerById = {}, userMarker = null, activeId = null;
+  var fitTimer = null, mapReady = false;
+  var currentPlace = null;
 
   /* ---------- storage ---------- */
   function loadLocal() {
@@ -382,7 +562,35 @@
     el.textContent = msg;
     el.classList.add('show');
     clearTimeout(toast._t);
-    toast._t = setTimeout(function () { el.classList.remove('show'); }, 2100);
+    toast._t = setTimeout(function () { el.classList.remove('show'); }, 2300);
+  }
+  function catStyle(p) { return CAT_STYLE[p.category] || { emoji: '📍', color: '#8b7a68', cls: '' }; }
+  function naverMapUrl(p) {
+    var q = p.mapQuery || [p.name, p.area].filter(Boolean).join(' ');
+    if (!q && p.mapUrl) return p.mapUrl;
+    return 'https://map.naver.com/p/search/' + encodeURIComponent(q);
+  }
+  function hasParking(p) {
+    var s = (p.parking || '');
+    if (!s) return false;
+    if (/없음|불가/.test(s) && !/무료|가능/.test(s)) return false;
+    return /주차|파킹/.test(s);
+  }
+  function distM(lat1, lng1, lat2, lng2) {
+    var R = 6371000;
+    var p1 = lat1 * Math.PI / 180, p2 = lat2 * Math.PI / 180;
+    var dp = p2 - p1, dl = (lng2 - lng1) * Math.PI / 180;
+    var x = Math.sin(dp / 2) * Math.sin(dp / 2) + Math.cos(p1) * Math.cos(p2) * Math.sin(dl / 2) * Math.sin(dl / 2);
+    return 2 * R * Math.asin(Math.sqrt(x));
+  }
+  function placeDist(p) {
+    if (!myLoc) return null;
+    return distM(myLoc.lat, myLoc.lng, p.lat, p.lng);
+  }
+  function fmtDist(m) {
+    if (m == null) return '';
+    if (m < 1000) return Math.round(m / 10) * 10 + 'm';
+    return (m / 1000).toFixed(m < 10000 ? 1 : 0) + 'km';
   }
 
   /* ---------- filtering ---------- */
@@ -394,10 +602,12 @@
       if (view.status === 'wishlist' && st !== 'wishlist') return false;
       if (view.status === 'favorite' && st !== 'favorite') return false;
     }
+    if (quick.parking && !hasParking(p)) return false;
+    if (quick.unvisited && isChecked(p)) return false;
     var q = view.q.trim().toLowerCase();
     if (q) {
       var hay = [p.name, p.area, p.category, p.hours, p.parking, p.priceRange, p.signature, p.note,
-                 local.memos[p.id] || ''].join(' ').toLowerCase();
+                 p.address, local.memos[p.id] || ''].join(' ').toLowerCase();
       if (hay.indexOf(q) === -1) return false;
     }
     return true;
@@ -406,45 +616,55 @@
     var list = places.filter(matches);
     list.sort(function (a, b) {
       if (view.sort === 'name') return a.name.localeCompare(b.name, 'ko');
+      if (view.sort === 'near') {
+        var da = placeDist(a), db = placeDist(b);
+        if (da == null || db == null) return 0;
+        return da - db;
+      }
       return new Date(b.addedAt) - new Date(a.addedAt);
     });
     return list;
   }
 
-  /* ---------- summary ---------- */
+  /* ---------- stats ---------- */
   function renderStats() {
-    var wish = 0, fav = 0;
+    var wish = 0, fav = 0, done = 0, latest = 0;
     places.forEach(function (p) {
       var st = effectiveStatus(p);
       if (st === 'wishlist') wish++;
       else if (st === 'favorite') fav++;
-    });
-    var latest = places.reduce(function (acc, p) {
+      if (local.checked[p.id]) done++;
       var t = new Date(p.addedAt).getTime();
-      return isNaN(t) ? acc : Math.max(acc, t);
-    }, 0);
+      if (!isNaN(t)) latest = Math.max(latest, t);
+    });
     $('#stat-total').textContent = places.length;
     $('#stat-wish').textContent = wish;
     $('#stat-fav').textContent = fav;
-    $('#stat-updated').textContent = latest ? fmtDate(new Date(latest).toISOString()) : '–';
+    $('#stat-done').textContent = done;
+    $('#updated-line').textContent = '장소 ' + places.length + '곳 · 마지막 업데이트 ' +
+      (latest ? fmtDate(new Date(latest).toISOString()) : '–') + ' (v4)';
   }
 
-  /* ---------- filters ui ---------- */
-  function buildChips(host, values, current, key, labelOf) {
+  /* ---------- filter chips ---------- */
+  function buildChips(host, values, current, key, labelOf, extraClass) {
     host.innerHTML = '';
     values.forEach(function (v) {
       var b = document.createElement('button');
       b.type = 'button';
-      b.className = 'chip';
+      b.className = 'chip' + (extraClass ? ' ' + extraClass : '');
       b.textContent = labelOf ? labelOf(v) : v;
       b.setAttribute('aria-pressed', String(current() === v));
       b.addEventListener('click', function () {
-        view[key] = v;
-        buildChips(host, values, current, key, labelOf);
-        render();
+        setFilter(key, current() === v && key !== 'area' && key !== 'category' ? '전체' : v);
       });
       host.appendChild(b);
     });
+  }
+  function setFilter(key, value) {
+    if (key === 'quick') return;
+    view[key] = value;
+    renderFilters();
+    render();
   }
   function renderFilters() {
     buildChips($('#filter-area'), AREAS, function () { return view.area; }, 'area');
@@ -452,28 +672,54 @@
     buildChips($('#filter-status'), STATUSES.map(function (s) { return s.key; }),
       function () { return view.status; }, 'status',
       function (k) { return (STATUSES.filter(function (s) { return s.key === k; })[0] || {}).label || k; });
+    // quick toggles
+    var host = $('#filter-quick');
+    host.innerHTML = '';
+    QUICKS.forEach(function (qk) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'chip quick';
+      b.textContent = qk.label;
+      b.setAttribute('aria-pressed', String(!!quick[qk.key]));
+      b.addEventListener('click', function () {
+        quick[qk.key] = !quick[qk.key];
+        b.setAttribute('aria-pressed', String(quick[qk.key]));
+        render();
+      });
+      host.appendChild(b);
+    });
+  }
+  function activeFilterText() {
+    var bits = [];
+    if (view.area !== '전체') bits.push(view.area);
+    if (view.category !== '전체') bits.push(view.category);
+    if (view.status !== '전체') bits.push((STATUSES.filter(function (s) { return s.key === view.status; })[0] || {}).label || view.status);
+    QUICKS.forEach(function (qk) { if (quick[qk.key]) bits.push(qk.label.replace(/^[^\s]+\s/, '')); });
+    if (view.q.trim()) bits.push('“' + view.q.trim() + '”');
+    return bits.length ? bits.join(' · ') : '전체 보기';
   }
 
-  /* ---------- cards ---------- */
-  /* 네이버 지도 검색 링크 — mapQuery가 있으면 그 검색어로, 없으면 장소명+동네로 만든다 */
-  function naverMapUrl(p) {
-    var q = p.mapQuery || [p.name, p.area].filter(Boolean).join(' ');
-    if (!q && p.mapUrl) return p.mapUrl;
-    return 'https://map.naver.com/p/search/' + encodeURIComponent(q);
-  }
-
+  /* ---------- rows / cards ---------- */
   function metaRow(glyph, text, cls) {
     if (!text) return '';
     return '<div class="meta-row' + (cls ? ' ' + cls : '') + '">' +
       '<span class="k" aria-hidden="true">' + glyph + '</span>' +
       '<span class="v">' + esc(text) + '</span></div>';
   }
-
   function phoneRow(phone) {
     var tel = String(phone).replace(/[^0-9+]/g, '');
     return '<div class="meta-row">' +
       '<span class="k" aria-hidden="true">📞</span>' +
       '<span class="v"><a href="tel:' + esc(tel) + '">' + esc(phone) + '</a></span></div>';
+  }
+  function badgesHTML(p, withStatus) {
+    var st = effectiveStatus(p);
+    var cs = catStyle(p);
+    var done = isChecked(p);
+    return '<span class="badge area">' + esc(p.area) + '</span>' +
+      '<span class="badge cat ' + cs.cls + '">' + esc(p.category) + '</span>' +
+      (withStatus && st && STATUS_LABEL[st] ? '<span class="badge st-' + esc(st) + '">' + esc(STATUS_LABEL[st]) + '</span>' : '') +
+      (done ? '<span class="badge done">✓ 다녀옴</span>' : '');
   }
 
   function cardHTML(p) {
@@ -481,17 +727,14 @@
     var done = isChecked(p);
     var memo = local.memos[p.id] || '';
     var isPhoto = p.category === '포토스팟';
+    var d = placeDist(p);
     return '' +
       '<article class="card' + (done ? ' checked' : '') + '" data-id="' + esc(p.id) + '">' +
         '<div class="card-head">' +
           '<h2>' + esc(p.name) + '</h2>' +
+          (d != null ? '<span class="dist">📍 ' + fmtDist(d) + '</span>' : '') +
         '</div>' +
-        '<div class="badges">' +
-          '<span class="badge area">' + esc(p.area) + '</span>' +
-          '<span class="badge cat' + (isPhoto ? ' photo' : '') + '">' + esc(p.category) + '</span>' +
-          '<span class="badge st-' + esc(st) + '">' + esc(STATUS_LABEL[st] || st) + '</span>' +
-          (done ? '<span class="badge done">✓ 다녀옴</span>' : '') +
-        '</div>' +
+        '<div class="badges">' + badgesHTML(p, true) + '</div>' +
         (p.address ? '<p class="addr">📍 ' + esc(p.address) + '</p>' : '') +
         '<div class="meta">' +
           metaRow('🕒', p.hours) +
@@ -503,6 +746,7 @@
         (p.note ? '<p class="note">' + esc(p.note) + '</p>' : '') +
         '<div class="actions">' +
           '<a class="btn map" href="' + esc(naverMapUrl(p)) + '" target="_blank" rel="noopener">🗺️ 네이버 지도</a>' +
+          '<button class="btn icon" type="button" data-act="showmap" aria-label="지도에서 보기">📍</button>' +
           '<button class="btn icon' + (done ? ' on' : '') + '" type="button" data-act="check" ' +
             'aria-pressed="' + done + '" aria-label="다녀옴 체크">' + (done ? '✓' : '☑︎') + '</button>' +
           '<button class="btn icon" type="button" data-act="memo" aria-expanded="false" aria-label="개인 메모">✎</button>' +
@@ -510,7 +754,7 @@
         '<div class="panel" data-panel>' +
           '<p class="label">상태</p>' +
           '<div class="statusrow">' +
-            ['wishlist', 'favorite', 'visited'].map(function (k) {
+            ['wishlist', 'favorite'].map(function (k) {
               return '<button class="chip" type="button" data-act="status" data-status="' + k + '" ' +
                 'aria-pressed="' + (st === k) + '">' + STATUS_LABEL[k] + '</button>';
             }).join('') +
@@ -521,8 +765,16 @@
       '</article>';
   }
 
+  /* ---------- render ---------- */
   function render() {
     var list = visiblePlaces();
+    renderStats();
+    renderList(list);
+    renderMap(list, true);
+    updateSummary(list.length);
+  }
+
+  function renderList(list) {
     var host = $('#list');
     if (!places.length) {
       host.innerHTML = '<div class="empty"><b>장소를 불러오지 못했어요</b>data/places.json 파일을 확인해 주세요.</div>';
@@ -530,14 +782,38 @@
       return;
     }
     if (!list.length) {
-      host.innerHTML = '<div class="empty"><b>조건에 맞는 곳이 없어요</b>필터를 조금 풀어보는 건 어때요?</div>';
+      host.innerHTML = '<div class="empty"><b>조건에 맞는 곳이 없어요</b>필터를 조금 풀어보는 건 어때요?' +
+        '<br><button class="btn" type="button" id="reset-filters">필터 초기화</button></div>';
+      var rb = $('#reset-filters');
+      if (rb) rb.addEventListener('click', resetFilters);
     } else {
       host.innerHTML = list.map(cardHTML).join('');
     }
-    $('#result-count').textContent = places.length + '곳 중 ' + list.length + '곳 표시';
+    $('#result-count').textContent = places.length + '곳 중 ' + list.length + '곳';
   }
 
-  /* ---------- card interactions (delegated) ---------- */
+  function updateSummary(count) {
+    var el = $('#filtersummary');
+    if (mode !== 'map') { el.hidden = true; return; }
+    el.hidden = !$('#filters').hidden;
+    if (el.hidden) return;
+    el.innerHTML = '<span><b>' + activeFilterText() + '</b> · ' + count + '곳</span>' +
+      '<button class="edit" type="button" id="summary-edit">바꾸기</button>';
+    var eb = $('#summary-edit');
+    if (eb) eb.addEventListener('click', function () { toggleFilters(true); });
+  }
+
+  function resetFilters() {
+    view.area = '전체'; view.category = '전체'; view.status = '전체'; view.q = '';
+    quick.parking = false; quick.unvisited = false;
+    $('#search').value = '';
+    $('#searchrow').classList.remove('has-text');
+    renderFilters();
+    render();
+    toast('필터를 초기화했어요');
+  }
+
+  /* ---------- card interactions ---------- */
   $('#list').addEventListener('click', function (e) {
     var btn = e.target.closest('[data-act]');
     if (!btn) return;
@@ -545,14 +821,12 @@
     if (!card) return;
     var id = card.getAttribute('data-id');
     var act = btn.getAttribute('data-act');
+    var place = findPlace(id);
+    if (!place) return;
 
     if (act === 'check') {
-      if (local.checked[id]) delete local.checked[id];
-      else local.checked[id] = true;
-      saveLocal();
+      toggleVisited(place);
       refreshCard(card, id);
-      toast(local.checked[id] ? '다녀온 곳으로 체크했어요' : '체크를 풀었어요');
-      if (view.status !== '전체') render();
     } else if (act === 'memo') {
       var panel = card.querySelector('[data-panel]');
       var open = !panel.classList.contains('open');
@@ -563,16 +837,10 @@
         setTimeout(function () { ta.focus(); }, 60);
       }
     } else if (act === 'status') {
-      var target = btn.getAttribute('data-status');
-      var place = places.filter(function (p) { return p.id === id; })[0];
-      if (!place) return;
-      if (target === place.status) delete local.status[id];
-      else local.status[id] = target;
-      saveLocal();
+      toggleStatus(place, btn.getAttribute('data-status'));
       refreshCard(card, id);
-      renderStats();
-      if (view.status !== '전체') render();
-      toast(STATUS_LABEL[target] + '(으)로 옮겼어요');
+    } else if (act === 'showmap') {
+      showOnMap(place);
     }
   });
 
@@ -588,8 +856,36 @@
     $('#list')._memoT = setTimeout(saveLocal, 350);
   });
 
+  function findPlace(id) {
+    return places.filter(function (p) { return p.id === id; })[0];
+  }
+  function toggleVisited(place) {
+    if (local.checked[place.id]) {
+      delete local.checked[place.id];
+      toast('다녀온 곳 체크를 풀었어요');
+    } else {
+      local.checked[place.id] = true;
+      toast('다녀온 곳으로 체크했어요');
+    }
+    saveLocal();
+    renderStats();
+    updateMarkersState();
+    if (quick.unvisited || view.status !== '전체') render();
+  }
+  function toggleStatus(place, target) {
+    if (effectiveStatus(place) === target) {
+      delete local.status[place.id];
+      toast('기본 상태로 되돌렸어요');
+    } else {
+      local.status[place.id] = target;
+      toast(STATUS_LABEL[target] + '(으)로 표시했어요');
+    }
+    saveLocal();
+    renderStats();
+    if (view.status !== '전체') render();
+  }
   function refreshCard(card, id) {
-    var place = places.filter(function (p) { return p.id === id; })[0];
+    var place = findPlace(id);
     if (!place) return;
     var wasOpen = card.querySelector('[data-panel]').classList.contains('open');
     var loose = document.createElement('div');
@@ -602,12 +898,14 @@
     card.replaceWith(fresh);
   }
 
-  /* ---------- search ---------- */
+  /* ---------- search & sort ---------- */
   var searchEl = $('#search');
+  var searchTimer = null;
   searchEl.addEventListener('input', function () {
     view.q = searchEl.value;
     $('#searchrow').classList.toggle('has-text', !!searchEl.value);
-    render();
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(render, 120);
   });
   $('#search-clear').addEventListener('click', function () {
     searchEl.value = '';
@@ -616,17 +914,264 @@
     searchEl.focus();
     render();
   });
-
-  $('#sort-toggle').addEventListener('click', function () {
-    view.sort = view.sort === 'added' ? 'name' : 'added';
-    this.textContent = '정렬: ' + (view.sort === 'added' ? '최근 추가' : '이름순');
+  $('#sort').addEventListener('change', function () {
+    var v = this.value;
+    if (v === 'near' && !myLoc) {
+      this.value = view.sort;
+      toast('먼저 내 위치를 확인할게요');
+      locate();
+      return;
+    }
+    view.sort = v;
     render();
+  });
+
+  /* ---------- view switch ---------- */
+  function setMode(next) {
+    if (next === mode) return;
+    mode = next;
+    var isMap = next === 'map';
+    document.body.classList.toggle('mapmode', isMap);
+    document.body.classList.toggle('listmode', !isMap);
+    $('#tab-map').setAttribute('aria-selected', String(isMap));
+    $('#tab-list').setAttribute('aria-selected', String(!isMap));
+    $('#filter-toggle').hidden = !isMap;
+    if (isMap) {
+      toggleFilters(false);
+      if (!mapReady) initMap();
+      setTimeout(function () {
+        if (map) { map.invalidateSize(); }
+        renderMap(visiblePlaces(), true);
+        updateSummary(visiblePlaces().length);
+      }, 60);
+    } else {
+      $('#filters').hidden = false;
+      $('#filtersummary').hidden = true;
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+  }
+  $('#tab-list').addEventListener('click', function () { setMode('list'); });
+  $('#tab-map').addEventListener('click', function () { setMode('map'); });
+
+  function toggleFilters(show) {
+    var f = $('#filters');
+    f.hidden = !show;
+    $('#filter-toggle').textContent = show ? '🎛 필터 닫기' : '🎛 필터';
+    updateSummary(visiblePlaces().length);
+  }
+  $('#filter-toggle').addEventListener('click', function () {
+    toggleFilters($('#filters').hidden);
+  });
+
+  /* ---------- map ---------- */
+  function initMap() {
+    if (mapReady) return;
+    if (typeof L === 'undefined') {
+      toast('지도 스크립트를 불러오지 못했어요');
+      return;
+    }
+    mapReady = true;
+    map = L.map('map', { zoomControl: false, attributionControl: true });
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      maxZoom: 19,
+      subdomains: 'abcd',
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>'
+    }).addTo(map);
+    L.control.zoom({ position: 'topright' }).addTo(map);
+    cluster = L.markerClusterGroup({
+      showCoverageOnHover: false,
+      spiderfyOnMaxZoom: true,
+      maxClusterRadius: 46,
+      disableClusteringAtZoom: 16,
+      iconCreateFunction: function (c) {
+        var n = c.getChildCount();
+        return L.divIcon({
+          html: '<div class="cl' + (n < 10 ? ' small' : '') + '">' + n + '</div>',
+          className: 'clwrap', iconSize: [40, 40]
+        });
+      }
+    });
+    map.addLayer(cluster);
+    map.on('click', function () { closePlace(); });
+    map.setView(GWANGJU_CENTER, 10);
+  }
+
+  function markerIcon(p, active) {
+    var cs = catStyle(p);
+    return L.divIcon({
+      className: 'pinwrap',
+      html: '<div class="pin' + (active ? ' active' : '') + '" style="--pc:' + cs.color + '"><span>' + cs.emoji + '</span></div>',
+      iconSize: active ? [38, 38] : [32, 32],
+      iconAnchor: active ? [19, 19] : [16, 16]
+    });
+  }
+
+  function renderMap(list, doFit) {
+    if (!mapReady || !cluster || mode !== 'map') return;
+    cluster.clearLayers();
+    markerById = {};
+    list.forEach(function (p) {
+      if (typeof p.lat !== 'number' || typeof p.lng !== 'number') return;
+      var m = L.marker([p.lat, p.lng], { icon: markerIcon(p, p.id === activeId), title: p.name, keyboard: false });
+      m.on('click', function () { openPlace(p); });
+      markerById[p.id] = m;
+      cluster.addLayer(m);
+    });
+    if (!doFit) return;
+    clearTimeout(fitTimer);
+    fitTimer = setTimeout(function () {
+      if (!list.length) return;
+      if (list.length === 1) {
+        map.setView([list[0].lat, list[0].lng], 15);
+        return;
+      }
+      var b = L.latLngBounds(list.map(function (p) { return [p.lat, p.lng]; }));
+      map.fitBounds(b, { padding: [36, 36], maxZoom: 15 });
+    }, 200);
+  }
+
+  function updateMarkersState() {
+    if (!cluster) return;
+    Object.keys(markerById).forEach(function (id) {
+      var p = findPlace(id);
+      if (p) markerById[id].setIcon(markerIcon(p, id === activeId));
+    });
+  }
+
+  function showOnMap(p) {
+    setMode('map');
+    setTimeout(function () {
+      if (!map) return;
+      clearTimeout(fitTimer);
+      map.setView([p.lat, p.lng], 16);
+      openPlace(p);
+    }, 260);
+  }
+
+  function fitAll() {
+    var list = visiblePlaces();
+    if (!list.length) { toast('지금 조건에 맞는 장소가 없어요'); return; }
+    if (list.length === 1) { map.setView([list[0].lat, list[0].lng], 15); return; }
+    var b = L.latLngBounds(list.map(function (p) { return [p.lat, p.lng]; }));
+    map.fitBounds(b, { padding: [36, 36], maxZoom: 15 });
+  }
+  $('#btn-fit').addEventListener('click', fitAll);
+
+  /* ---------- locate ---------- */
+  function locate() {
+    if (!navigator.geolocation) {
+      toast('이 브라우저에서는 위치를 쓸 수 없어요');
+      return;
+    }
+    var btn = $('#btn-locate');
+    btn.classList.add('locating');
+    navigator.geolocation.getCurrentPosition(function (pos) {
+      btn.classList.remove('locating');
+      myLoc = { lat: pos.coords.latitude, lng: pos.coords.longitude, acc: pos.coords.accuracy };
+      if (map) {
+        if (userMarker) map.removeLayer(userMarker);
+        userMarker = L.circleMarker([myLoc.lat, myLoc.lng], {
+          radius: 8, color: '#ffffff', weight: 3, fillColor: '#2f7cf6', fillOpacity: 1
+        }).addTo(map);
+        userMarker.bindTooltip('내 위치');
+        map.setView([myLoc.lat, myLoc.lng], 13);
+      }
+      view.sort = 'near';
+      $('#sort').value = 'near';
+      render();
+      var near = visiblePlaces().slice(0, 1)[0];
+      toast(near ? '내 위치에서 가장 가까운 곳은 ' + fmtDist(placeDist(near)) + ' 거리예요' : '내 위치를 기준으로 정렬했어요');
+    }, function (err) {
+      btn.classList.remove('locating');
+      var msg = '위치를 가져오지 못했어요';
+      if (err && err.code === 1) msg = '위치 권한이 꺼져 있어요. 브라우저 설정에서 위치를 허용해 주세요';
+      else if (err && err.code === 3) msg = '위치 확인이 오래 걸려요. 잠시 후 다시 시도해 주세요';
+      toast(msg);
+      if (view.sort === 'near') { view.sort = 'added'; $('#sort').value = 'added'; render(); }
+    }, { enableHighAccuracy: true, timeout: 9000, maximumAge: 60000 });
+  }
+  $('#btn-locate').addEventListener('click', locate);
+
+  /* ---------- place sheet ---------- */
+  var psheet = $('#psheet');
+  function openPlace(p) {
+    currentPlace = p;
+    activeId = p.id;
+    var cs = catStyle(p);
+    var done = isChecked(p);
+    var st = effectiveStatus(p);
+    $('#p-badges').innerHTML = badgesHTML(p, true);
+    $('#p-name').textContent = p.name;
+    $('#p-addr').textContent = p.address ? '📍 ' + p.address : '';
+    var isPhoto = p.category === '포토스팟';
+    var rows = '';
+    rows += metaRow('🕒', p.hours);
+    rows += metaRow('🅿️', p.parking);
+    rows += (p.phone ? phoneRow(p.phone) : '');
+    rows += metaRow(isPhoto ? '🎟️' : '💰', p.priceRange);
+    rows += metaRow(isPhoto ? '📸' : '⭐', p.signature, 'sig');
+    var d = placeDist(p);
+    if (d != null) rows += metaRow('📍', '내 위치에서 ' + fmtDist(d), '');
+    $('#p-meta').innerHTML = rows;
+    var noteEl = $('#p-note');
+    if (p.note) { noteEl.textContent = p.note; noteEl.hidden = false; } else { noteEl.hidden = true; }
+    $('#p-naver').href = naverMapUrl(p);
+    var callBtn = $('#p-call');
+    if (p.phone) {
+      callBtn.hidden = false;
+      callBtn.href = 'tel:' + String(p.phone).replace(/[^0-9+]/g, '');
+    } else { callBtn.hidden = true; }
+    var dbtn = $('#p-done');
+    dbtn.className = 'btn' + (done ? ' on' : '');
+    dbtn.textContent = done ? '✓ 다녀왔어요' : '☑︎ 가봤어요';
+    var wbtn = $('#p-wish');
+    wbtn.className = 'btn' + (st === 'wishlist' ? ' on' : '');
+    wbtn.textContent = st === 'wishlist' ? '♥ 가볼래요' : '♡ 가볼래요';
+    psheet.hidden = false;
+    activateMarker(p.id);
+  }
+  function activateMarker(id) {
+    if (!cluster) return;
+    Object.keys(markerById).forEach(function (k) {
+      var pl = findPlace(k);
+      if (pl) markerById[k].setIcon(markerIcon(pl, k === id));
+    });
+  }
+  function closePlace() {
+    psheet.hidden = true;
+    if (activeId && markerById[activeId]) {
+      var pl = findPlace(activeId);
+      if (pl) markerById[activeId].setIcon(markerIcon(pl, false));
+    }
+    currentPlace = null;
+    activeId = null;
+  }
+  $('#psheet-close').addEventListener('click', closePlace);
+  psheet.addEventListener('click', function (e) { if (e.target === psheet) closePlace(); });
+  $('#p-done').addEventListener('click', function () {
+    if (!currentPlace) return;
+    toggleVisited(currentPlace);
+    openPlace(currentPlace);
+  });
+  $('#p-wish').addEventListener('click', function () {
+    if (!currentPlace) return;
+    if (effectiveStatus(currentPlace) === 'wishlist') {
+      delete local.status[currentPlace.id];
+      toast('가볼래요를 풀었어요');
+    } else {
+      local.status[currentPlace.id] = 'wishlist';
+      toast('가볼래요에 담았어요');
+    }
+    saveLocal();
+    renderStats();
+    openPlace(currentPlace);
   });
 
   /* ---------- roulette ---------- */
   var sheet = $('#sheet');
   var stage = $('#stage');
   var slotDetail = $('#slot-detail');
+  var lastPick = null;
 
   function openSheet() {
     sheet.hidden = false;
@@ -639,7 +1184,9 @@
   $('#sheet-close').addEventListener('click', closeSheet);
   sheet.addEventListener('click', function (e) { if (e.target === sheet) closeSheet(); });
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && !sheet.hidden) closeSheet();
+    if (e.key !== 'Escape') return;
+    if (!psheet.hidden) closePlace();
+    else if (!sheet.hidden) closeSheet();
   });
 
   function rollOnce() {
@@ -648,6 +1195,7 @@
     openSheet();
     slotDetail.innerHTML = '';
     var pick = pool[Math.floor(Math.random() * pool.length)];
+    lastPick = pick;
     spinning = true;
     var i = Math.floor(Math.random() * pool.length);
     var elapsed = 0, total = 1500, delay = 60;
@@ -672,20 +1220,28 @@
     stage.innerHTML =
       '<div class="final">' +
         '<div class="final-name">' + esc(p.name) + '</div>' +
-        '<div class="final-sub">' + esc(p.area) + ' · ' + esc(p.category) + '</div>' +
+        '<div class="final-sub">' + esc(p.area) + ' · ' + esc(p.category) +
+          (placeDist(p) != null ? ' · ' + fmtDist(placeDist(p)) : '') + '</div>' +
       '</div>';
     var isPhoto = p.category === '포토스팟';
     slotDetail.innerHTML =
       '<div class="result-meta">' +
         metaRow('🕒', p.hours) +
         metaRow('🅿️', p.parking) +
-        (p.phone ? phoneRow(p.phone) : '') +
         metaRow(isPhoto ? '🎟️' : '💰', p.priceRange) +
         metaRow(isPhoto ? '📸' : '⭐', p.signature, 'sig') +
         (p.note ? '<div class="result-note">' + esc(p.note) + '</div>' : '') +
-        '<a class="btn map" href="' + esc(naverMapUrl(p)) + '" target="_blank" rel="noopener" ' +
-          'style="margin-top:4px">🗺️ 네이버 지도</a>' +
+      '</div>' +
+      '<div class="sheet-actions">' +
+        '<button class="btn primary" type="button" id="r-map">🗺️ 지도에서 보기</button>' +
+        '<a class="btn" href="' + esc(naverMapUrl(p)) + '" target="_blank" rel="noopener">네이버 지도</a>' +
       '</div>';
+    var rb = $('#r-map');
+    if (rb) rb.addEventListener('click', function () {
+      closeSheet();
+      document.body.style.overflow = '';
+      showOnMap(p);
+    });
   }
 
   $('#spin').addEventListener('click', function () { if (!spinning) rollOnce(); });
@@ -697,7 +1253,6 @@
     .then(function (data) {
       places = Array.isArray(data) ? data : (data.places || []);
       places = places.filter(function (p) { return p && p.id && p.name; });
-      renderStats();
       renderFilters();
       render();
     })
